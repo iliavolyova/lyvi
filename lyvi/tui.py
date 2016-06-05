@@ -130,6 +130,7 @@ class Ui:
     hidden -- whether the UI is hidden
     quit -- stop the mainloop if this flag is set to True
     """
+    views = lyvi.config['views']
     view = lyvi.config['default_view']
     hidden = lyvi.config['ui_hidden']
     _header = ''
@@ -196,6 +197,12 @@ class Ui:
         elif self.view == 'guitartabs':
             self.header = '%s - %s' % (lyvi.md.artist or 'N/A', lyvi.md.title or 'N/A')
             self.text = lyvi.md.guitartabs or 'No guitar tabs found'
+        elif self.view == 'albumreview':
+            self.header = '%s - %s' % (lyvi.md.artist or 'N/A', lyvi.md.album or 'N/A')
+            self.text = lyvi.md.albumreview or 'No reviews found'
+        elif self.view == 'albumlist':
+            self.header = '%s' % lyvi.md.artist
+            self.text = lyvi.md.albumlist or 'No album list found'
 
     def home(self):
         """Scroll to the top of the current view."""
@@ -215,7 +222,7 @@ class Ui:
     def toggle_views(self):
         """Toggle between views."""
         if not self.hidden:
-            views = ['lyrics', 'artistbio', 'guitartabs']
+            views = [k for k in self.views.keys() if self.views[k] == True]
             n = views.index(self.view)
             self.view = views[n + 1] if n < len(views) - 1 else views[0]
             self.home()

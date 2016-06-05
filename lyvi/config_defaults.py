@@ -163,4 +163,16 @@ defaults = {
 # Type: bool
 # Default value: False
 'ui_hidden': False,
+
+# Setup enabled tabs
+# Type: dict
+# Default value: all tabs showing
+'views': {
+    'artistbio': True,
+    'lyrics': True,
+    'guitartabs': True,
+    'albumreview': True,
+    'albumlist': True
+}
+
 }

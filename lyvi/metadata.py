@@ -24,6 +24,8 @@ class Metadata:
     _lyrics = None
     _artistbio = None
     _guitartabs = None
+    _albumlist = None
+    _albumreview = None
     _backdrops = None
     _cover = None
 
@@ -59,6 +61,26 @@ class Metadata:
     def guitartabs(self, value):
         """Update UI."""
         self._guitartabs = value
+        lyvi.ui.update()
+
+    @property
+    def albumlist(self):
+        return self._albumlist
+
+    @albumlist.setter
+    def albumlist(self, value):
+        """Update UI."""
+        self._albumlist = value
+        lyvi.ui.update()
+
+    @property
+    def albumreview(self):
+        return self._albumreview
+
+    @albumreview.setter
+    def albumreview(self, value):
+        """Update UI."""
+        self._albumreview = value
         lyvi.ui.update()
 
     @property
@@ -103,7 +125,7 @@ class Metadata:
     def reset_tags(self):
         """Set all tag and metadata properties to None."""
         self.artist = self.title = self.album = self.file = None
-        self.lyrics = self.artistbio = self.guitartabs = None
+        self.lyrics = self.artistbio = self.guitartabs = self.albumreview = self.albumlist = None
         self.backdrops = self.cover = None
 
     def delete(self, type, artist, title, album):
@@ -187,7 +209,7 @@ class Metadata:
         title = self.title
 
         number = 1
-        if type in ('lyrics', 'artistbio', 'guitartabs'):
+        if type in ('lyrics', 'artistbio', 'guitartabs', 'albumreview', 'albumlist'):
             setattr(self, type, 'Searching...')
         elif type in ('backdrops', 'cover'):
             setattr(self, type, None)
